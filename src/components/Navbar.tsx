@@ -1,44 +1,73 @@
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
 const Navbar = () => {
+    const [scrollY, setScrollY] = useState(0)
+    const [showFixedNavbar, setShowFixedNavbar] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY
+            setScrollY(currentScrollY)
+
+            if (!showFixedNavbar && currentScrollY >= 60) {
+                setShowFixedNavbar(true)
+            } else if (showFixedNavbar && currentScrollY < 40) {
+                setShowFixedNavbar(false)
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [showFixedNavbar])
+
+    const NavbarContent = () => (
+        <>
+            {/* Logo */}
+            <div>
+                <Link href="/">Logo</Link>
+            </div>
+
+            {/* Navigation items */}
+            <ul className="hidden md:flex items-center space-x-6">
+                <li>
+                    <Link href="/about">About</Link>
+                </li>
+            </ul>
+        </>
+    )
+
     return (
         <>
-            <header className="w-full fixed top-0 z-50 bg-white shadow-md">
+            <header className={`bg-white border-b w-full ${showFixedNavbar ? 'hidden' : 'block'}`}>
                 <div className="container mx-auto px-4 py-2">
                     <nav className="flex items-center justify-between">
-                        {/* Logo */}
-                        <div>
-                            <Link href="/">
-                                {/* Replace with your logo */}
-                                <span className="cursor-pointer text-xl font-bold">Logo</span>
-                            </Link>
-                        </div>
+                        <NavbarContent />
+                    </nav>
+                </div>
+            </header>
 
-                        {/* Navigation items */}
-                        <ul className="hidden md:flex items-center space-x-6">
-                            {/* Replace with your navigation items */}
-                            <li>
-                                <Link href="/about">
-                                    <span className="cursor-pointer text-gray-700">About</span>
-                                </Link>
-                            </li>
-                            {/* Add more navigation items */}
-                        </ul>
+            <header
+                className={`bg-white border-b fixed top-0 left-0 w-full transition-transform duration-300 ${
+                    showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
+                }`}
+            >
+                <div className="container mx-auto px-4 py-2">
+                    <nav className="flex items-center justify-between">
+                        <NavbarContent />
                     </nav>
                 </div>
             </header>
 
             {/* Bottom navigation for small screens */}
-            <div className="w-full fixed bottom-0 z-50 bg-white shadow-md block md:hidden">
+            <div className="w-full fixed bottom-0 z-50 bg-white border-t shadow-md block md:hidden">
                 <div className="container mx-auto px-4 py-2">
                     <ul className="flex items-center justify-center space-x-6">
-                        {/* Add your bottom navigation items for small screens here */}
                         <li>
-                            <Link href="/about">
-                                <span className="cursor-pointer text-gray-700">About</span>
-                            </Link>
+                            <Link href="/about">About</Link>
                         </li>
-                        {/* Add more bottom navigation items */}
                     </ul>
                 </div>
             </div>

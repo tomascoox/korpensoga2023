@@ -1,6 +1,9 @@
 module.exports = {
     content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}', './src/app/**/*.{js,ts,jsx,tsx}'],
     theme: {
+        clipPath: {
+            heroClip: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
+        },
         extend: {
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -45,5 +48,5 @@ module.exports = {
             }),
         },
     },
-    plugins: [require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/typography'), require('tailwind-clip-path')],
 }

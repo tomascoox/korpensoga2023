@@ -15,9 +15,10 @@ export default function Home() {
             <div className="mt-[50px] md:mt-[50px]">
                 <Hero />
             </div>
-            <main className="container mx-auto px-4 mt-[36px] md:mt-[36px] mb-4">
-                <div className="prose prose-lg">
-                    <h1>Welcome to Korpensoga</h1>
+            <main className="container mx-auto px-4 mt-[100px] md:mt-[120px] mb-4">
+                <div className="prose">
+                    <h1>Välkommen till Korpens Öga</h1>
+                    <p>Varför skall du välja oss som nästa äventyr i livet?</p>
                     <h2>Underrubrik</h2>
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores tempora perspiciatis officia consequatur modi quos rerum,

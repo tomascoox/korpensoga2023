@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
@@ -49,10 +50,10 @@ const Navbar = () => {
     }, [])
 
     const MenuItems = ({ hiddenItems = [] }: { hiddenItems?: string[] }) => (
-        <ul className="flex space-x-6">
+        <ul className="flex space-x-3 text-sm">
             {!hiddenItems.includes('korpensoga') && (
                 <li>
-                    <Link href="/korpensoga">Korpens Öga</Link>
+                    <Link href="/korpensoga">Korpens&nbsp;Öga</Link>
                 </li>
             )}
             {!hiddenItems.includes('kontakt') && (
@@ -93,13 +94,15 @@ const Navbar = () => {
                         <div>Kontakta oss</div>
                     </div>
                     <header className={`bg-white border-b w-full ${showFixedNavbar ? 'hidden' : 'absolute'}`}>
-                        <div className="mx-auto px-3 py-2">
-                            <nav className="flex items-center justify-between">
-                                <div>
-                                    <Link href="/">Logo</Link>
+                        <div className="mx-auto px-3 py-2 flex items-center justify-between">
+                            <Link href="/">
+                                <div className="flex items-center mr-2">
+                                        <Image src="/korpens-logotype-black.svg" alt="Logo" width={200} height={40} />
                                 </div>
+                            </Link>
+                            <div className="flex items-center ml-auto">
                                 <MenuItems hiddenItems={isSmallScreen ? ['bildgalleri', 'nyheter', 'english'] : []} />
-                            </nav>
+                            </div>
                         </div>
                     </header>
                 </div>
@@ -110,13 +113,15 @@ const Navbar = () => {
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >
-                <div className="container mx-auto px-4 py-2">
-                    <nav className="flex items-center justify-between">
-                        <div>
-                            <Link href="/">Logo</Link>
+                <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+                    <Link href="/">
+                        <div className="flex items-center mr-2">
+                                <Image src="/korpens-logotype-black.svg" alt="Logo" width={200} height={40} />
                         </div>
+                    </Link>
+                    <div className="flex items-center ml-auto">
                         <MenuItems hiddenItems={isSmallScreen ? ['bildgalleri', 'nyheter', 'english'] : []} />
-                    </nav>
+                    </div>
                 </div>
             </header>
 

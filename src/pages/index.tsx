@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
 
 export default function Home() {
     return (
@@ -10,7 +11,11 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <main className="container mx-auto px-4 mt-20 md:mt-20 mb-4">
+
+            <div className="mt-[50px] md:mt-[50px]">
+                <Hero />
+            </div>
+            <main className="container mx-auto px-4 mt-[20px] md:mt-[20px] mb-4">
                 <div className="prose prose-lg">
                     <h1>Welcome to Korpensoga</h1>
                     <p>

@@ -10,7 +10,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <main className="container mx-auto px-4 mt-14 md:mt-14">
+            <main className="container mx-auto px-4 mt-14 md:mt-14 mb-4">
                 <div className="prose prose-lg">
                     <h1>Welcome to Korpensoga</h1>
                     <p>

@@ -15,9 +15,10 @@ export default function Home() {
             <div className="mt-[50px] md:mt-[50px]">
                 <Hero />
             </div>
-            <main className="container mx-auto px-4 mt-[20px] md:mt-[20px] mb-4">
+            <main className="container mx-auto px-4 mt-[36px] md:mt-[36px] mb-4">
                 <div className="prose prose-lg">
                     <h1>Welcome to Korpensoga</h1>
+                    <h2>Underrubrik</h2>
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores tempora perspiciatis officia consequatur modi quos rerum,
                         sed alias! Sed architecto culpa repudiandae maxime magni minima tempore animi, expedita incidunt ducimus fugit sit assumenda
@@ -25,6 +26,7 @@ export default function Home() {
                         perspiciatis officia consequatur modi quos rerum, sed alias! Sed architecto culpa repudiandae maxime magni minima tempore
                         animi, expedita incidunt ducimus fugit sit assumenda pariatur neque natus asperiores, officia recusandae.
                     </p>
+                    <h2>Underrubrik</h2>
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores tempora perspiciatis officia consequatur modi quos rerum,
                         sed alias! Sed architecto culpa repudiandae maxime magni minima tempore animi, expedita incidunt ducimus fugit sit assumenda

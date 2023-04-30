@@ -93,7 +93,7 @@ const Navbar = () => {
                         <div>Kundomdömen</div>
                         <div>Kontakta oss</div>
                     </div>
-                    <header className={`bg-white border-b w-full ${showFixedNavbar ? 'hidden' : 'absolute'}`}>
+                    <header className={`z-50 bg-white border-b w-full ${showFixedNavbar ? 'hidden' : 'absolute'}`}>
                         <div className="mx-auto px-3 py-2 flex items-center justify-between">
                             <Link href="/">
                                 <div className="flex items-center mr-2">
@@ -109,7 +109,7 @@ const Navbar = () => {
             </div>
 
             <header
-                className={`bg-white border-b fixed top-0 left-0 w-full transition-transform duration-300 ${
+                className={`z-50 bg-white border-b fixed top-0 left-0 w-full transition-transform duration-300 ${
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >

@@ -2,14 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useRef, HTMLAttributes } from 'react'
 
-const Navbar = () => {
-    // Setup variables
-    const [showFixedNavbar, setShowFixedNavbar] = useState(false)
-    const navbarRef = useRef<HTMLDivElement>(null)
-    const [navbarSystemHeight, setNavbarSystemHeight] = useState(0)
-    const [isSmallScreen, setIsSmallScreen] = useState(false)
-
-    const observeElement = (element: HTMLElement | null, callback: (entry: IntersectionObserverEntry) => void) => {
+const useObserveElement = (elementRef: React.RefObject<HTMLElement>, callback: (entry: IntersectionObserverEntry) => void) => {
+    useEffect(() => {
+        const element = elementRef.current
         const observer = new IntersectionObserver(
             ([entry]) => {
                 callback(entry)
@@ -24,46 +19,49 @@ const Navbar = () => {
         return () => {
             if (element) observer.unobserve(element)
         }
-    }
+    }, [elementRef, callback])
+}
+
+const Navbar = () => {
+    // Setup variables
+    const [showScrollUpNavbar, setShowScrollUpNavbar] = useState(false)
+    const navbarRef = useRef<HTMLDivElement>(null)
+    const [navbarSystemHeight, setNavbarSystemHeight] = useState(0)
+    const [isSmallScreen, setIsSmallScreen] = useState(false)
+    const [firstInstanceHeight, setFirstInstanceHeight] = useState(0)
 
     // Check scroll and height of navbar-system and set variable showFixedNavbar accordingly
-    useEffect(() => {
-        const handleIntersection = (entry: IntersectionObserverEntry) => {
-            const isIntersecting = entry.isIntersecting
-            setShowFixedNavbar(!isIntersecting)
-        }
+    const handleIntersection = (entry: IntersectionObserverEntry) => {
+        const isIntersecting = entry.isIntersecting
+        setShowScrollUpNavbar(!isIntersecting)
+        setNavbarSystemHeight(isIntersecting ? navbarRef.current?.offsetHeight || 0 : 0)
+    }
 
-        const removeObserver = observeElement(navbarRef.current, handleIntersection)
+    useObserveElement(navbarRef, handleIntersection)
 
-        return () => {
-            removeObserver()
-        }
-    }, [navbarRef])
+    const topStripeRef = useRef<HTMLDivElement>(null)
+    const mainNavRef = useRef<HTMLDivElement>(null)
+    const ctaButtonRef = useRef<HTMLDivElement>(null)
 
     // Calculate navbar-system height on page-load and on subsequent resizing
     useEffect(() => {
-        const calculateNavbarSystemHeight = () => {
-            if (navbarRef.current) {
-                const navbar = navbarRef.current
-                const topStripe = navbar.querySelector('.top-stripe') as HTMLDivElement
-                const mainNav = navbar.querySelector('.main-nav') as HTMLDivElement
-                const ctaButton = navbar.querySelector('.cta-button') as HTMLDivElement
+        const calculateNavbarSystemHeight = (topStripe: HTMLElement | null, mainNav: HTMLElement | null, ctaButton: HTMLElement | null) => {
+            const topStripeOffsetHeight = topStripe ? topStripe.offsetHeight : 0
+            const mainNavOffsetHeight = mainNav ? mainNav.offsetHeight : 0
+            const ctaButtonOffsetHeight = ctaButton ? ctaButton.offsetHeight : 0
 
-                const topStripeOffsetHeight = topStripe ? topStripe.offsetHeight : 0
-                const mainNavOffsetHeight = mainNav ? mainNav.offsetHeight : 0
-                const ctaButtonOffsetHeight = ctaButton ? ctaButton.offsetHeight : 0
+            let navbarSystemOffsetHeight = topStripeOffsetHeight + mainNavOffsetHeight
 
-                let navbarSystemOffsetHeight = topStripeOffsetHeight + mainNavOffsetHeight
-
-                return navbarSystemOffsetHeight
-            }
-            return 0
+            return navbarSystemOffsetHeight
         }
 
         const handleResize = () => {
-            const navbarSystemOffsetHeight = calculateNavbarSystemHeight()
+            const navbarSystemOffsetHeight = calculateNavbarSystemHeight(topStripeRef.current, mainNavRef.current, ctaButtonRef.current)
             setNavbarSystemHeight(navbarSystemOffsetHeight)
             setIsSmallScreen(window.innerWidth < 1020)
+            if (navbarRef.current) {
+                setFirstInstanceHeight(navbarRef.current.offsetHeight)
+            }
         }
 
         handleResize()
@@ -122,7 +120,7 @@ const Navbar = () => {
     return (
         <>
             {/* Navbar first instance - This one sits at the top and moves with the page-scroll */}
-            <div ref={navbarRef} style={{ minHeight: navbarSystemHeight }}>
+            <div ref={navbarRef}>
                 <div>
                     {/* Top-stripe */}
                     <div className="top-stripe hidden text-white text-base leading-none font-serif bg-gray-700 md:flex items-center justify-between px-6 py-4">
@@ -131,7 +129,8 @@ const Navbar = () => {
                         <div>Kontakta oss</div>
                     </div>
                     {/* Main-navbar */}
-                    <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full ${showFixedNavbar ? 'hidden' : 'relative'}`}>
+                    <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full sticky top-0`}>
+
                         <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                             <Logo />
                             <MenuItems />
@@ -144,7 +143,7 @@ const Navbar = () => {
             {/* Navbar second instance - This one appears in an animation from the top when user has scrolled as far as the height of the first instance of navbar above */}
             <header
                 className={`z-50 bg-white fixed top-0 left-0 h-[100px] sm:h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
-                    showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
+                    showScrollUpNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >
                 <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">

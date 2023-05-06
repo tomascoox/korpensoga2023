@@ -11,14 +11,10 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-
-            <div className="mt-[0px] md:mt-[0px]">
-                <Hero />
-            </div>
-            <main className="container mx-auto px-4 mt-[100px] md:mt-[120px] mb-4">
+            <Hero />
+            <main className="container mx-auto px-4 mt-[50px] md:mt-[50px] mb-24">
                 <div className="prose">
                     <h1>VÄLKOMMEN TILL KORPENS ÖGA</h1>
-                    <p>Varför skall du välja oss som nästa äventyr i livet?</p>
                     <h2>Underrubrik</h2>
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores tempora perspiciatis officia consequatur modi quos rerum,

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, HTMLAttributes } from 'react'
 
 const Navbar = () => {
     // Setup variables
@@ -9,22 +9,36 @@ const Navbar = () => {
     const [navbarSystemHeight, setNavbarSystemHeight] = useState(0)
     const [isSmallScreen, setIsSmallScreen] = useState(false)
 
+    const observeElement = (element: HTMLElement | null, callback: (entry: IntersectionObserverEntry) => void) => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                callback(entry)
+            },
+            {
+                threshold: 0,
+            }
+        )
+
+        if (element) observer.observe(element)
+
+        return () => {
+            if (element) observer.unobserve(element)
+        }
+    }
+
     // Check scroll and height of navbar-system and set variable showFixedNavbar accordingly
     useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY
-            if (!showFixedNavbar && currentScrollY >= navbarSystemHeight) {
-                setShowFixedNavbar(true)
-            } else if (showFixedNavbar && currentScrollY < navbarSystemHeight) {
-                setShowFixedNavbar(false)
-            }
+        const handleIntersection = (entry: IntersectionObserverEntry) => {
+            const isIntersecting = entry.isIntersecting
+            setShowFixedNavbar(!isIntersecting)
         }
 
-        window.addEventListener('scroll', handleScroll)
+        const removeObserver = observeElement(navbarRef.current, handleIntersection)
+
         return () => {
-            window.removeEventListener('scroll', handleScroll)
+            removeObserver()
         }
-    }, [navbarSystemHeight, showFixedNavbar])
+    }, [navbarRef])
 
     // Calculate navbar-system height on page-load and on subsequent resizing
     useEffect(() => {

@@ -2,10 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manuale:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Manuale:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap'); */
 
+@font-face {
+    font-family: 'Manuale';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/manuale/v6/m8wn1_iY9QfY3LheM0vI8g.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Manuale';
+    font-style: bold;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/manuale/v6/m8wn1_iY9QfY3LheM0vI8g.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_cJD3gnD_w.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: bold;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_cJD3gnD_w.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('/fonts/BebasNeue-Regular.woff2') format('woff2'), url('/fonts/BebasNeue-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
 :root {
     --foreground-rgb: 0, 0, 0;
@@ -17,3 +56,4 @@ body {
     color: rgb(var(--foreground-rgb));
     background-color: white;
 }
+

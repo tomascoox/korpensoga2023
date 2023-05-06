@@ -12,7 +12,7 @@ module.exports = {
             fontFamily: {
                 serif: ['Manuale', 'serif'],
                 sans: ['Montserrat', 'sans-serif'],
-                'bebas-neue': ['Bebas Neue', 'sans-serif'],
+                'bebas-neue': ['Bebas Neue', 'bebas-neue'],
             },
             typography: theme => ({
                 DEFAULT: {
@@ -20,11 +20,9 @@ module.exports = {
                         h1: {
                             fontFamily: `${theme('fontFamily.bebas-neue')}`,
                             fontSize: '3rem',
-                            fontWeight: '400',
                         },
                         h2: {
                             fontFamily: `${theme('fontFamily.sans')}`,
-                            fontWeight: '600',
                         },
                         h3: {
                             fontFamily: `${theme('fontFamily.sans')}`,

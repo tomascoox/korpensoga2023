@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
 const Navbar = () => {
-    const [scrollY, setScrollY] = useState(0)
     const [showFixedNavbar, setShowFixedNavbar] = useState(false)
     const navbarRef = useRef<HTMLDivElement>(null)
     const [navbarSystemHeight, setNavbarSystemHeight] = useState(0)
@@ -12,8 +11,6 @@ const Navbar = () => {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY
-            setScrollY(currentScrollY)
-
             if (!showFixedNavbar && currentScrollY >= navbarSystemHeight) {
                 setShowFixedNavbar(true)
             } else if (showFixedNavbar && currentScrollY < navbarSystemHeight) {
@@ -28,114 +25,113 @@ const Navbar = () => {
     }, [navbarSystemHeight, showFixedNavbar])
 
     useEffect(() => {
-        if (navbarRef.current) {
-            const navbarOffsetHeight = navbarRef.current.offsetHeight
-            const topStripeOffsetHeight = (navbarRef.current.querySelector('.bg-gray-200') as HTMLDivElement)?.offsetHeight || 0
-            const mainNavOffsetHeight = (navbarRef.current.querySelector('.main-nav') as HTMLDivElement)?.offsetHeight || 0
-            const navbarSystemOffsetHeight = navbarOffsetHeight + topStripeOffsetHeight + mainNavOffsetHeight
-            setNavbarSystemHeight(navbarSystemOffsetHeight)
-        }
-    }, [])
+        const calculateNavbarSystemHeight = () => {
+            if (navbarRef.current) {
+                const navbar = navbarRef.current
+                const topStripe = navbar.querySelector('.top-stripe') as HTMLDivElement
+                const mainNav = navbar.querySelector('.main-nav') as HTMLDivElement
+                const ctaButton = navbar.querySelector('.cta-button') as HTMLDivElement
 
-    useEffect(() => {
+                const topStripeOffsetHeight = topStripe ? topStripe.offsetHeight : 0
+                const mainNavOffsetHeight = mainNav ? mainNav.offsetHeight : 0
+                const ctaButtonOffsetHeight = ctaButton ? ctaButton.offsetHeight : 0
+
+                let navbarSystemOffsetHeight = topStripeOffsetHeight + mainNavOffsetHeight
+
+                return navbarSystemOffsetHeight
+            }
+            return 0
+        }
+
         const handleResize = () => {
-            setIsSmallScreen(window.innerWidth < 768)
+            const navbarSystemOffsetHeight = calculateNavbarSystemHeight()
+            setNavbarSystemHeight(navbarSystemOffsetHeight)
+            setIsSmallScreen(window.innerWidth < 1020)
         }
 
         handleResize()
         window.addEventListener('resize', handleResize)
+
         return () => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
 
-    const MenuItems = ({ hiddenItems = [] }: { hiddenItems?: string[] }) => (
-        <ul className="flex space-x-3 text-sm">
-            {!hiddenItems.includes('korpensoga') && (
+    const Logo = () => (
+        <Link href="/" className="flex items-center h-full pl-12 pr-12 border-r">
+            <div className="flex items-center w-[150px] h-full" style={{ overflow: 'hidden' }}>
+                <Image src="/korpens-logotype-black.svg" alt="Logo" width={300} height={150} />
+            </div>
+        </Link>
+    )
+
+    const MenuItems = () => (
+        <div className="flex items-center justify-center px-14 w-full text-sm uppercase leading-none">
+            <ul className="flex justify-around w-full">
                 <li>
                     <Link href="/korpensoga">Korpens&nbsp;Öga</Link>
                 </li>
-            )}
-            {!hiddenItems.includes('kontakt') && (
                 <li>
                     <Link href="/kontakt">Kontakt</Link>
                 </li>
-            )}
-            {!hiddenItems.includes('lankar') && (
-                <li>
+                <li className="hidden lg:block">
                     <Link href="/lankar">Länkar</Link>
                 </li>
-            )}
-            {!hiddenItems.includes('bildgalleri') && (
-                <li>
+                <li className="hidden lg:block">
                     <Link href="/bildgalleri">Bildgalleri</Link>
                 </li>
-            )}
-            {!hiddenItems.includes('nyheter') && (
-                <li>
+                <li className="hidden lg:block">
                     <Link href="/nyheter">Nyheter</Link>
                 </li>
-            )}
-            {!hiddenItems.includes('english') && (
-                <li>
+                <li className="hidden lg:block">
                     <Link href="/english">English</Link>
                 </li>
-            )}
-        </ul>
+            </ul>
+        </div>
+    )
+
+    const CallToAction = () => (
+        <div className="cta-button hidden xl:flex items-center h-full bg-slate-400 text-xl uppercase leading-none px-10">
+            <div>BOKA&nbsp;TUR</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="ml-2 w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+        </div>
     )
 
     return (
         <>
-            <div ref={navbarRef}>
+            {/* Navbar first instance */}
+            <div ref={navbarRef} style={{ minHeight: navbarSystemHeight }}>
                 <div>
-                    <div className="text-white text-xs bg-gray-700 flex items-center justify-between px-3 py-2">
-                        <div>070-668 00 68</div>
+                    {/* Top-stripe */}
+                    <div className="top-stripe hidden text-white text-base leading-none font-serif bg-gray-700 md:flex items-center justify-between px-6 py-4">
+                        <div className="font-sans font-bold">070-668 00 68</div>
                         <div>Kundomdömen</div>
                         <div>Kontakta oss</div>
                     </div>
-                    <header className={`z-50 bg-white border-b w-full ${showFixedNavbar ? 'hidden' : 'absolute'}`}>
-                        <div className="mx-auto px-3 py-2 flex items-center justify-between">
-                            <Link href="/">
-                                <div className="flex items-center mr-2">
-                                        <Image src="/korpens-logotype-black.svg" alt="Logo" width={200} height={40} />
-                                </div>
-                            </Link>
-                            <div className="flex items-center ml-auto">
-                                <MenuItems hiddenItems={isSmallScreen ? ['bildgalleri', 'nyheter', 'english'] : []} />
-                            </div>
+                    {/* Main-navbar */}
+                    <header className={`main-nav z-50 bg-white h-[70px] xl:h-[100px] w-full ${showFixedNavbar ? 'hidden' : 'relative'}`}>
+                        <div className="mx-auto flex items-center justify-between absolute inset-0">
+                            <Logo />
+                            <MenuItems />
+                            <CallToAction />
                         </div>
                     </header>
                 </div>
             </div>
-
+            {/* Navbar second instance */}
             <header
-                className={`z-50 bg-white border-b fixed top-0 left-0 w-full transition-transform duration-300 ${
+                className={`z-50 bg-white fixed top-0 left-0 h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >
-                <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-                    <Link href="/">
-                        <div className="flex items-center mr-2">
-                                <Image src="/korpens-logotype-black.svg" alt="Logo" width={200} height={40} />
-                        </div>
-                    </Link>
-                    <div className="flex items-center ml-auto">
-                        <MenuItems hiddenItems={isSmallScreen ? ['bildgalleri', 'nyheter', 'english'] : []} />
-                    </div>
+                <div className="mx-auto flex items-center justify-between absolute inset-0">
+                    <Logo />
+                    <MenuItems />
+                    <CallToAction />
                 </div>
             </header>
-
-            {isSmallScreen ? (
-                <div className="w-full fixed bottom-0 bg-white border-t">
-                    <div className="container mx-auto px-4 py-2">
-                        <nav className="flex items-center justify-around">
-                            <MenuItems hiddenItems={['korpensoga', 'kontakt', 'lankar']} />
-                        </nav>
-                    </div>
-                </div>
-            ) : (
-                ''
-            )}
         </>
     )
 }

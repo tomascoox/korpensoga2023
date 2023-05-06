@@ -12,12 +12,12 @@ export default function Home() {
             </Head>
             <Navbar />
 
-            <div className="mt-[50px] md:mt-[50px]">
+            <div className="mt-[0px] md:mt-[0px]">
                 <Hero />
             </div>
             <main className="container mx-auto px-4 mt-[100px] md:mt-[120px] mb-4">
                 <div className="prose">
-                    <h1>Välkommen till Korpens Öga</h1>
+                    <h1>VÄLKOMMEN TILL KORPENS ÖGA</h1>
                     <p>Varför skall du välja oss som nästa äventyr i livet?</p>
                     <h2>Underrubrik</h2>
                     <p>

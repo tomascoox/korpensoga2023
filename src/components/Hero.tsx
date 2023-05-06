@@ -10,7 +10,7 @@ const HeroImage = () => {
                 style={{ objectFit: 'cover' }}
                 className="lg:clip-path-heroClip"
             />
-            <div className='absolute w-full h-full flex items-center justify-center font-bebas-neue text-white font-bold text-4xl md:text-6xl lg:text-8xl xl:text-9xl'>
+            <div className='absolute w-full h-full flex items-center justify-center font-bebas-neue text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl'>
                 UPPLEVELSER I FJÄRRAN
             </div>
         </div>

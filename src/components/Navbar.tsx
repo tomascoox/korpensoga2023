@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
 const Navbar = () => {
-
     // Setup variables
     const [showFixedNavbar, setShowFixedNavbar] = useState(false)
     const navbarRef = useRef<HTMLDivElement>(null)
@@ -134,7 +133,7 @@ const Navbar = () => {
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >
-                <div className="mx-auto flex items-center justify-between absolute inset-0">
+                <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                     <Logo />
                     <MenuItems />
                     <CallToAction />

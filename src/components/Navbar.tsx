@@ -3,11 +3,14 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
 const Navbar = () => {
+
+    // Setup variables
     const [showFixedNavbar, setShowFixedNavbar] = useState(false)
     const navbarRef = useRef<HTMLDivElement>(null)
     const [navbarSystemHeight, setNavbarSystemHeight] = useState(0)
     const [isSmallScreen, setIsSmallScreen] = useState(false)
 
+    // Check scroll and height of navbar-system and set variable showFixedNavbar accordingly
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY
@@ -24,6 +27,7 @@ const Navbar = () => {
         }
     }, [navbarSystemHeight, showFixedNavbar])
 
+    // Calculate navbar-system height on page-load and on subsequent resizing
     useEffect(() => {
         const calculateNavbarSystemHeight = () => {
             if (navbarRef.current) {
@@ -57,6 +61,7 @@ const Navbar = () => {
         }
     }, [])
 
+    // Create logo-html
     const Logo = () => (
         <Link href="/" className="flex items-center h-full pl-12 pr-12 border-r">
             <div className="flex items-center w-[150px] h-full" style={{ overflow: 'hidden' }}>
@@ -65,6 +70,7 @@ const Navbar = () => {
         </Link>
     )
 
+    // Create menuitems-html
     const MenuItems = () => (
         <div className="flex items-center justify-center px-14 w-full text-sm uppercase leading-none">
             <ul className="flex justify-around w-full">
@@ -90,6 +96,7 @@ const Navbar = () => {
         </div>
     )
 
+    // Create call-to-action-html
     const CallToAction = () => (
         <div className="cta-button hidden xl:flex items-center h-full bg-slate-400 text-xl uppercase leading-none px-10">
             <div>BOKA&nbsp;TUR</div>
@@ -101,7 +108,7 @@ const Navbar = () => {
 
     return (
         <>
-            {/* Navbar first instance */}
+            {/* Navbar first instance - This one sits at the top and moves with the page-scroll */}
             <div ref={navbarRef} style={{ minHeight: navbarSystemHeight }}>
                 <div>
                     {/* Top-stripe */}
@@ -120,7 +127,8 @@ const Navbar = () => {
                     </header>
                 </div>
             </div>
-            {/* Navbar second instance */}
+
+            {/* Navbar second instance - This one appears in an animation from the top when user has scrolled as far as the height of the first instance of navbar above */}
             <header
                 className={`z-50 bg-white fixed top-0 left-0 h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'

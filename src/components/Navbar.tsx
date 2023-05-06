@@ -63,7 +63,7 @@ const Navbar = () => {
 
     // Create logo-html
     const Logo = () => (
-        <Link href="/" className="flex items-center h-full pl-12 pr-12 border-r">
+        <Link href="/" className="flex items-center h-full pl-12 pr-12 sm:border-r">
             <div className="flex items-center w-[150px] h-full" style={{ overflow: 'hidden' }}>
                 <Image src="/korpens-logotype-black.svg" alt="Logo" width={300} height={150} />
             </div>
@@ -72,7 +72,7 @@ const Navbar = () => {
 
     // Create menuitems-html
     const MenuItems = () => (
-        <div className="flex items-center justify-center px-14 w-full text-sm uppercase leading-none">
+        <div className="flex items-center justify-center px-14 w-full text-sm uppercase leading-none border-t sm:border-none py-3 sm:py-0">
             <ul className="flex justify-around w-full">
                 <li>
                     <Link href="/korpensoga">Korpens&nbsp;Öga</Link>
@@ -118,8 +118,8 @@ const Navbar = () => {
                         <div>Kontakta oss</div>
                     </div>
                     {/* Main-navbar */}
-                    <header className={`main-nav z-50 bg-white h-[70px] xl:h-[100px] w-full ${showFixedNavbar ? 'hidden' : 'relative'}`}>
-                        <div className="mx-auto flex items-center justify-between absolute inset-0">
+                    <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full ${showFixedNavbar ? 'hidden' : 'relative'}`}>
+                        <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                             <Logo />
                             <MenuItems />
                             <CallToAction />

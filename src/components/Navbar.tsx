@@ -129,7 +129,7 @@ const Navbar = () => {
 
             {/* Navbar second instance - This one appears in an animation from the top when user has scrolled as far as the height of the first instance of navbar above */}
             <header
-                className={`z-50 bg-white fixed top-0 left-0 h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
+                className={`z-50 bg-white fixed top-0 left-0 h-[100px] sm:h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
                     showFixedNavbar ? 'translate-y-0' : '-translate-y-full'
                 }`}
             >

@@ -117,6 +117,27 @@ const Navbar = () => {
         </div>
     )
 
+    const BottomNav = () => (
+        <div className="lg:hidden flex justify-between bg-gray-700 fixed bottom-0 h-[45px] w-full text-white">
+            <div className="bg-[#352929] px-4 flex justify-center items-center font-bold text-sm">BOKA&nbsp;TUR</div>
+            <div className="flex flex-grow justify-start items-center col-span-2 ml-2 font-bold text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
+                    />
+                </svg>
+                070-668 00 68
+            </div>
+            <div className="bg-[#352929] w-[40px] grid justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </div>
+        </div>
+    )
+
     return (
         <>
             {/* Navbar first instance - This one sits at the top and moves with the page-scroll */}
@@ -129,7 +150,7 @@ const Navbar = () => {
                         <div>Kontakta oss</div>
                     </div>
                     {/* Main-navbar */}
-                    <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full sticky top-0`}>
+                    <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full sticky top-0 shadow-md`}>
                         <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                             <Logo />
                             <MenuItems />
@@ -142,7 +163,7 @@ const Navbar = () => {
             {/* Navbar second instance - This one appears in an animation from the top when user has scrolled as far as the height of the first instance of navbar above */}
             <header
                 className={`z-50 bg-white fixed top-0 left-0 h-[100px] sm:h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
-                    showScrollUpNavbar ? 'translate-y-0' : '-translate-y-full'
+                    showScrollUpNavbar ? 'translate-y-0 shadow-md' : '-translate-y-full'
                 }`}
             >
                 <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
@@ -152,38 +173,7 @@ const Navbar = () => {
                 </div>
             </header>
             {/* Bottom-nav which appears on small screens */}
-            <div className="lg:hidden flex justify-between bg-gray-700 fixed bottom-0 h-[45px] w-full text-white">
-                <div className="bg-[#352929] px-4 flex justify-center items-center font-bold text-sm">BOKA&nbsp;TUR</div>
-                <div className="flex flex-grow justify-start items-center col-span-2 ml-2 font-bold text-sm">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-                        />
-                    </svg>
-                    070-668 00 68
-                </div>
-                <div className="bg-[#352929] w-[40px] grid justify-center items-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </div>
-            </div>
+            <BottomNav />
         </>
     )
 }

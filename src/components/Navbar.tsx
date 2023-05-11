@@ -82,12 +82,12 @@ const Navbar = () => {
         </Link>
     )
 
-    // Create menuitems-html
-    const MenuItems = () => (
+    // Create menuitemstop-html
+    const MenuItemsTop = () => (
         <div className="flex items-center justify-center px-14 w-full text-sm uppercase leading-none border-t sm:border-none py-3 sm:py-0">
             <ul className="flex justify-around w-full">
                 <li>
-                    <Link href="/korpensoga">Korpens&nbsp;Öga</Link>
+                    <Link href="/korallgrottan">Korallgrottan</Link>
                 </li>
                 <li>
                     <Link href="/kontakt">Kontakt</Link>
@@ -106,6 +106,30 @@ const Navbar = () => {
                 </li>
             </ul>
         </div>
+    )
+
+    // Create menuitemsbottom-html
+    const MenuItemsBottom = () => (
+        <ul className="w-full h-full pt-10 text-xl leading-10 text-center">
+            <li>
+                <Link href="/korallgrottan">Korallgrottan</Link>
+            </li>
+            <li>
+                <Link href="/kontakt">Kontakt</Link>
+            </li>
+            <li>
+                <Link href="/lankar">Länkar</Link>
+            </li>
+            <li>
+                <Link href="/bildgalleri">Bildgalleri</Link>
+            </li>
+            <li>
+                <Link href="/nyheter">Nyheter</Link>
+            </li>
+            <li>
+                <Link href="/english">English</Link>
+            </li>
+        </ul>
     )
 
     // Create call-to-action-html
@@ -179,8 +203,7 @@ const Navbar = () => {
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 className={`fixed left-0 top-[${navbarSystemHeight}px] w-full h-screen bg-white p-4 z-20`}
             >
-                {navbarSystemHeight}
-                <MenuItems />
+                <MenuItemsBottom />
             </motion.div>
         )
     }
@@ -201,7 +224,7 @@ const Navbar = () => {
                         <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full sticky top-0 shadow-md`}>
                             <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                                 <Logo />
-                                <MenuItems />
+                                <MenuItemsTop />
                                 <CallToAction />
                             </div>
                         </header>
@@ -215,12 +238,11 @@ const Navbar = () => {
                 >
                     <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                         <Logo />
-                        <MenuItems />
+                        <MenuItemsTop />
                         <CallToAction />
                     </div>
                 </header>
             </div>
-
 
             {/* Bottom-nav which appears on small screens */}
             <BottomNav />

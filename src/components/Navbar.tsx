@@ -35,7 +35,7 @@ const Navbar = () => {
         setShowBottomMenu(prevShowBottomMenu => !prevShowBottomMenu)
     }
 
-    // Check scroll and height of navbar-system and set variable showFixedNavbar accordingly
+    // Check scroll and height of navbar-system and set variable showScrollUpNavbar accordingly
     const handleIntersection = (entry: IntersectionObserverEntry) => {
         const isIntersecting = entry.isIntersecting
         setShowScrollUpNavbar(!isIntersecting)
@@ -212,16 +212,14 @@ const Navbar = () => {
         <>
             <div ref={navbarRef}>
                 {/* Navbar first instance - This one sits at the top and moves with the page-scroll */}
-                <div>
+                {/* <div>
                     <div>
-                        {/* Top-stripe */}
-                        <div className="top-stripe hidden text-white text-base leading-none font-serif bg-gray-700 md:flex items-center justify-between px-6 py-4">
+                        <div className="hidden text-white text-base leading-none font-serif bg-gray-700 md:flex items-center justify-between px-6 py-4">
                             <div className="font-sans font-bold">070-668 00 68</div>
                             <div>Kundomdömen</div>
                             <div>Kontakta oss</div>
                         </div>
-                        {/* Main-navbar */}
-                        <header className={`main-nav z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full sticky top-0 shadow-md`}>
+                        <header className={`z-50 bg-white h-[100px] sm:h-[70px] xl:h-[100px] w-full`}>
                             <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
                                 <Logo />
                                 <MenuItemsTop />
@@ -229,19 +227,30 @@ const Navbar = () => {
                             </div>
                         </header>
                     </div>
-                </div>
+                </div> */}
                 {/* Navbar second instance - This one appears in an animation from the top when user has scrolled as far as the height of the first instance of navbar above */}
-                <header
-                    className={`z-50 bg-white fixed top-0 left-0 h-[100px] sm:h-[70px] xl:h-[100px] w-full transition-transform duration-500 ${
-                        showScrollUpNavbar ? 'translate-y-0 shadow-md' : '-translate-y-full'
-                    }`}
-                >
-                    <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
-                        <Logo />
-                        <MenuItemsTop />
-                        <CallToAction />
+                <div>
+                    {/* Top-stripe */}
+                    <div className="hidden text-white text-base leading-none font-serif bg-gray-700 md:flex items-center justify-between px-6 py-4">
+                        <div className="font-sans font-bold">070-668 00 68</div>
+                        <div>Kundomdömen</div>
+                        <div>Kontakta oss</div>
                     </div>
-                </header>
+                    {/* Main-navbar */}
+                    <header
+                        className={`z-50 h-[100px] sm:h-[70px] xl:h-[100px] w-full ${
+                            showScrollUpNavbar
+                                ? 'bg-blue-300 fixed left-0 top-[100px] transition-transform duration-500 translate-y-0 shadow-md'
+                                : 'bg-red-600 sticky left-0 top-0 transition-transform duration-500 -translate-y-full shadow-md'
+                        }`}
+                    >
+                        <div className="mx-auto flex flex-col sm:flex-row items-center justify-between absolute inset-0">
+                            <Logo />
+                            <MenuItemsTop />
+                            <CallToAction />
+                        </div>
+                    </header>
+                </div>
             </div>
 
             {/* Bottom-nav which appears on small screens */}
